@@ -8,9 +8,26 @@ var jwt = require('jsonwebtoken');
 var bcrypt = require('bcryptjs');
 var config = require('../config');
 var verifyToken = require('./VerifyToken');
+var cycle = 0;
+var [r,g,b] = [0,0,0];
 
 router.post('/register', function(req, res) {
-
+    if(cycle == 0){
+      r = Math.floor(Math.random()*256);          // Random between 0-255
+      g = Math.floor(Math.random()*256);          // Random between 0-255
+      b = 255;  
+      cycle = 1; 
+    } else if(cycle == 1) {
+      r = Math.floor(Math.random()*256);          // Random between 0-255
+      g = 255;   
+      b = Math.floor(Math.random()*256);          // Random between 0-255
+      cycle = 2;
+    } else {
+      r = 255;   
+      g = Math.floor(Math.random()*256);          // Random between 0-255
+      b = Math.floor(Math.random()*256);          // Random between 0-255
+      cycle = 0;
+    }
     console.log('Received a request!');
     var hashedPassword = bcrypt.hashSync(req.body.password, 8);
     
@@ -19,7 +36,12 @@ router.post('/register', function(req, res) {
       email : req.body.email,
       password : hashedPassword,
       favItems: [],
-      orderHistory: []
+      orderHistory: [],
+      color: {
+        r:r,
+        g:g,
+        b:b
+      }
     },
     function (err, user) {
       if (err) return res.status(500).send("There was a problem registering the user.")

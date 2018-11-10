@@ -7,7 +7,8 @@ const userSchema = mongoose.Schema({
     password: String,
     favItems: [{ type: mongoose.Schema.Types.ObjectId, ref: 'MenuItem' }],
     orderHistory: [{type: mongoose.Schema.Types.ObjectId, ref: 'Order'}],
-    preferredZone: [{type:String}]
+    preferredZone: [{type:String}],
+    color: {}
 });
 
 module.exports = mongoose.model('User',userSchema);
