@@ -37,11 +37,9 @@ router.post('/register', function(req, res) {
       password : hashedPassword,
       favItems: [],
       orderHistory: [],
-      color: {
-        r:r,
-        g:g,
-        b:b
-      }
+      r:r,
+      g:g,
+      b:b
     },
     function (err, user) {
       if (err) return res.status(500).send("There was a problem registering the user.")
