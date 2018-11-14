@@ -29,29 +29,63 @@ router.post('/register', function(req, res) {
       cycle = 0;
     }
     console.log('Received a request!');
-    var hashedPassword = bcrypt.hashSync(req.body.password, 8);
-    
-    User.create({
-      username : req.body.username,
-      email : req.body.email,
-      password : hashedPassword,
-      favItems: [],
-      orderHistory: [],
-      r:r,
-      g:g,
-      b:b
-    },
-    function (err, user) {
-      if (err) return res.status(500).send("There was a problem registering the user.")
-      // create a token
-      var token = jwt.sign({ id: user._id }, config.secret, {
-        expiresIn: 86400 // expires in 24 hours
-      });
-      
+    if(req.body.password!= ""){
+      var hashedPassword = bcrypt.hashSync(req.body.password, 8);
 
-      console.log("Created a user!");
-      res.status(200).send({ auth: true, token: token });
-    }); 
+      User.create({
+        username : req.body.username,
+        email : req.body.email,
+        password : hashedPassword,
+        favItems: [],
+        orderHistory: [],
+        r:r,
+        g:g,
+        b:b
+      },
+      function (err, user) {
+        if (err) return res.status(500).send("There was a problem registering the user.")
+        // create a token
+        var token = jwt.sign({ id: user._id }, config.secret, {
+          expiresIn: 86400 // expires in 24 hours
+        });
+        
+  
+        console.log("Created a user!");
+        res.status(200).send({ auth: true, token: token });
+      }); 
+    } else {
+      var found = false;
+      User.findOne({username:req.body.username},(err,res)=>{
+        if(res){
+          console.log('User exists');
+          found = true;
+        } 
+      });
+      if(found == false){
+        User.create({
+          username : req.body.username,
+          email : req.body.email,
+          password: "",
+          favItems: [],
+          orderHistory: [],
+          r:r,
+          g:g,
+          b:b
+        },
+        function (err, user) {
+          if (err) return res.status(500).send("There was a problem registering the user.")
+          // create a token
+          var token = jwt.sign({ id: user._id }, config.secret, {
+            expiresIn: 86400 // expires in 24 hours
+          });
+          
+    
+          console.log("Created a user!");
+          res.status(200).send({ auth: true, token: token });
+        }); 
+      }
+    }
+
 });
 
 
