@@ -36,7 +36,7 @@ router.post('/register', function(req, res) {
         username : req.body.username,
         email : req.body.email,
         password : hashedPassword,
-        picture: "",
+        picture: req.body.picture,
         favItems: [],
         orderHistory: [],
         r:r,
