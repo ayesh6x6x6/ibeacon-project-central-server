@@ -162,6 +162,7 @@ app.post('/api/checkout',(req,res)=>{
     }).then(resolve=>{
         User.findByIdAndUpdate({_id:userr._id},{$push: {orderHistory:ord}},(err,r)=>{
             console.log(r);
+            res.status(200);
         });
     });
     
