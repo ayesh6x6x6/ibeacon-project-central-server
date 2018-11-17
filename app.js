@@ -104,7 +104,7 @@ app.use('/api/auth', AuthController);
 var user = {};
 
 app.get('/api/getuser',(req,res)=>{
-    User.findOne({email:req.query.username},(err,userr)=>{
+    User.findOne({username:req.query.username},(err,userr)=>{
         if(err){
             console.log(err);
         } else {
