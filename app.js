@@ -116,6 +116,10 @@ app.get('/api/getuser',(req,res)=>{
     res.status(200).json(user);
 });
 
+app.get('/api/getconditions',(req,res)=>{
+    
+});
+
 app.get('/api/getitems',(req,res)=>{
     console.log('Getting items now!');
     MenuItem.find((err,result)=>{
@@ -168,6 +172,15 @@ app.post('/api/checkout',(req,res)=>{
     
     cart = [];
     
+});
+
+app.post('/api/addtofav',(req,res)=>{
+    const user = req.body.user;
+    const item = req.body.item;
+    User.findOneAndUpdate({email:user.email},{$push: {favItems:item}},(err,r)=>{
+        console.log(r);
+        res.status(200).send('Added a favorite item');
+    });
 });
 
 app.post('/api/addtocart',(req,res)=>{

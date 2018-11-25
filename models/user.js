@@ -9,6 +9,7 @@ const userSchema = mongoose.Schema({
     favItems: [{ type: mongoose.Schema.Types.ObjectId, ref: 'MenuItem' }],
     orderHistory: [{type: mongoose.Schema.Types.ObjectId, ref: 'Order'}],
     preferredZone: [{type:String}],
+    visit: [],
     r: Number,
     g: Number,
     b: Number
