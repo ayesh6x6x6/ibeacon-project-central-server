@@ -15,5 +15,8 @@
     "mqtt": "^2.18.8",
     "sw-toolbox": "3.6.0"
   },
-  "description": "Server"
+  "description": "Server",
+  "scripts": {
+    "start": "node server.js"
+  }
 }
