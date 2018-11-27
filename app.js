@@ -176,7 +176,13 @@ app.post('/api/checkout',(req,res)=>{
 
 app.post('/api/addtofav',(req,res)=>{
     const user = req.body.user;
-    const item = new MenuItem(...req.body.item);
+    const item = new MenuItem({
+        _id:req.body.item._id,
+        img:req.body.item.img,
+        name:req.body.item.name,
+        price:req.body.item.price,
+        description:req.body.item.description
+    });
     console.log(user);
     console.log(item);
     // Mem = 
