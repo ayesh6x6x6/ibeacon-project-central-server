@@ -109,7 +109,7 @@ app.get('/api/getuser',(req,res)=>{
         if(err){
             console.log(err);
         } else {
-            user = userr;
+            user = JSON.parse(userr);
             console.log('User is now:'+user);
         }
     });
