@@ -115,6 +115,8 @@ app.get('/api/getuser',(req,res)=>{
     });
     console.log('Received request for user');
     var favItems = [];
+    console.log(user.favItems + 'fav');
+    user.favItems = JSON.parse(user.favItems);
     user.favItems.forEach(item=>{
         MenuItem.findOne({_id:item._id},(err,re)=>{
             favItems.push(re);
