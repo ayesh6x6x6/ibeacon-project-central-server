@@ -177,6 +177,8 @@ app.post('/api/checkout',(req,res)=>{
 app.post('/api/addtofav',(req,res)=>{
     const user = req.body.user;
     const item = req.body.item;
+    console.log(user);
+    console.log(item);
     User.findOneAndUpdate({email:user.email},{$push: {favItems:item}},(err,r)=>{
         console.log(r);
         res.status(200).send('Added a favorite item');
