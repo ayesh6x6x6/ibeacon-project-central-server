@@ -186,9 +186,13 @@ app.post('/api/addtofav',(req,res)=>{
     console.log(user);
     // console.log(item);
     MenuItem.findOne({name:req.body.item.name},(err,r)=>{
-        User.findOneAndUpdate({email:user.email},{$push: {favItems:r}},(err,r)=>{
+        if(err){
             console.log(err);
-            console.log(r);
+        }
+        console.log(r);
+        User.findOneAndUpdate({email:user.email},{$push: {favItems:r}},(erro,re)=>{
+            console.log(erro);
+            console.log(re);
             res.status(200).send('Added a favorite item');
         });
     });
