@@ -176,21 +176,23 @@ app.post('/api/checkout',(req,res)=>{
 
 app.post('/api/addtofav',(req,res)=>{
     const user = req.body.user;
-    const item = new MenuItem({
-        _id:req.body.item._id,
-        img:req.body.item.img,
-        name:req.body.item.name,
-        price:req.body.item.price,
-        description:req.body.item.description
-    });
+    // const item = new MenuItem({
+    //     // _id:req.body.item._id,
+    //     img:req.body.item.img,
+    //     name:req.body.item.name,
+    //     price:req.body.item.price,
+    //     description:req.body.item.description
+    // });
     console.log(user);
     console.log(item);
-    // Mem = 
-    User.findOneAndUpdate({email:user.email},{$push: {favItems:item}},(err,r)=>{
-        console.log(err);
-        console.log(r);
-        res.status(200).send('Added a favorite item');
+    MenuItem.findOne({name:req.body.item.name},(err,r)=>{
+        User.findOneAndUpdate({email:user.email},{$push: {favItems:r}},(err,r)=>{
+            console.log(err);
+            console.log(r);
+            res.status(200).send('Added a favorite item');
+        });
     });
+    
 });
 
 app.post('/api/addtocart',(req,res)=>{
