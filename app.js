@@ -176,7 +176,7 @@ app.post('/api/checkout',(req,res)=>{
 });
 
 app.post('/api/addtofav',(req,res)=>{
-    const user = req.body.user;
+    const user = JSON.parse(req.body.user);
     // const item = new MenuItem({
     //     // _id:req.body.item._id,
     //     img:req.body.item.img,
@@ -185,7 +185,7 @@ app.post('/api/addtofav',(req,res)=>{
     //     description:req.body.item.description
     // });
     console.log(user);
-    const it = req.body.item;
+    const it = JSON.parse(req.body.item);
     // console.log(item);
     console.log("Name:"+it.name);
     console.log(user.email);
