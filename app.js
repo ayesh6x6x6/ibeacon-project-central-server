@@ -184,10 +184,11 @@ app.post('/api/addtofav',(req,res)=>{
     //     description:req.body.item.description
     // });
     console.log(user);
+    const it = req.body.item;
     // console.log(item);
-    console.log("Name:"+req.body.item.name);
+    console.log("Name:"+item.name);
     console.log(user.email);
-    MenuItem.findOne({name:req.body.item.name},(err,r)=>{
+    MenuItem.findOne({name:item.name},(err,r)=>{
         if(err){
             console.log(err);
         }
