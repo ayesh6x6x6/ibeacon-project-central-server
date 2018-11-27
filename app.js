@@ -180,6 +180,7 @@ app.post('/api/addtofav',(req,res)=>{
     console.log(user);
     console.log(item);
     User.findOneAndUpdate({email:user.email},{$push: {favItems:item}},(err,r)=>{
+        console.log(err);
         console.log(r);
         res.status(200).send('Added a favorite item');
     });
