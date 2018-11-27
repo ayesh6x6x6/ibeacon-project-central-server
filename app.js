@@ -114,11 +114,15 @@ app.get('/api/getuser',(req,res)=>{
         }
     });
     console.log('Received request for user');
+    var favItems = [];
     user.favItems.forEach(item=>{
         MenuItem.findOne({_id:item._id},(err,re)=>{
-            item = re;
+            favItems.push(re);
         });
     });
+    console.log('FavItem is :'+favItems);
+    user.favItems = favItems;
+    console.log('User is now:'+user);
     res.status(200).json(user);
 });
 
