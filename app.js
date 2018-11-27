@@ -114,6 +114,11 @@ app.get('/api/getuser',(req,res)=>{
         }
     });
     console.log('Received request for user');
+    user.favItems.forEach(item=>{
+        MenuItem.findOne({_id:item._id},(err,re)=>{
+            item = re;
+        });
+    });
     res.status(200).json(user);
 });
 
