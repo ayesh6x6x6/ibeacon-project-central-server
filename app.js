@@ -105,7 +105,8 @@ app.use('/api/auth', AuthController);
 var user = {};
 app.get('/api/getmenuitems',(req,res)=>{
     MenuItem.findOne({_id:req.query.item},(err,re)=>{
-        res.status(200).json({item:re});
+        console.log(re.name);
+        res.status(200).json({item:re.name});
     });
 });
 app.get('/api/getuser',(req,res)=>{
