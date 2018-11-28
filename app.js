@@ -113,16 +113,16 @@ app.get('/api/getuser',(req,res)=>{
             console.log('User is now:'+user);
             console.log('User fav items'+user.favItems);
             console.log('Received request for user');
-            var favItems = [];
+            user.preferences = [];
             console.log(user.favItems + 'fav');
             // user.favItems = JSON.parse(user.favItems);
-            user.favItems.forEach(item=>{
+            await user.favItems.forEach(item=>{
                 MenuItem.findOne({_id:item._id},(err,re)=>{
-                    favItems.push(re);
+                    user.preferences.push(re);
                 });
             });
-            console.log('FavItem is :'+favItems);
-            user.favItems = favItems;
+            // console.log('FavItem is :'+favItems);
+            // user.favItems = favItems;
             console.log('User is now:'+user);
             res.status(200).json(user);
         }
