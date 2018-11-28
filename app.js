@@ -109,7 +109,7 @@ app.get('/api/getuser',(req,res)=>{
         if(err){
             console.log(err);
         } else {
-            user = JSON.parse(userr);
+            user = userr;
             console.log('User is now:'+user);
             console.log('User fav items'+user.favItems);
             console.log('Received request for user');
