@@ -116,15 +116,17 @@ app.get('/api/getuser',(req,res)=>{
             user.preferences = [];
             console.log(user.favItems + 'fav');
             // user.favItems = JSON.parse(user.favItems);
-            await user.favItems.forEach(item=>{
+            user.favItems.forEach(item=>{
                 MenuItem.findOne({_id:item._id},(err,re)=>{
                     user.preferences.push(re);
                 });
             });
-            // console.log('FavItem is :'+favItems);
-            // user.favItems = favItems;
+            flag = true;
             console.log('User is now:'+user);
             res.status(200).json(user);
+            // console.log('FavItem is :'+favItems);
+            // user.favItems = favItems;
+            
         }
     });
     
