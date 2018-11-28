@@ -112,21 +112,22 @@ app.get('/api/getuser',(req,res)=>{
             user = JSON.parse(userr);
             console.log('User is now:'+user);
             console.log('User fav items'+user.favItems);
+            console.log('Received request for user');
+            var favItems = [];
+            console.log(user.favItems + 'fav');
+            // user.favItems = JSON.parse(user.favItems);
+            user.favItems.forEach(item=>{
+                MenuItem.findOne({_id:item._id},(err,re)=>{
+                    favItems.push(re);
+                });
+            });
+            console.log('FavItem is :'+favItems);
+            user.favItems = favItems;
+            console.log('User is now:'+user);
+            res.status(200).json(user);
         }
     });
-    console.log('Received request for user');
-    var favItems = [];
-    console.log(user.favItems + 'fav');
-    // user.favItems = JSON.parse(user.favItems);
-    user.favItems.forEach(item=>{
-        MenuItem.findOne({_id:item._id},(err,re)=>{
-            favItems.push(re);
-        });
-    });
-    console.log('FavItem is :'+favItems);
-    user.favItems = favItems;
-    console.log('User is now:'+user);
-    res.status(200).json(user);
+    
 });
 
 app.get('/api/getconditions',(req,res)=>{
