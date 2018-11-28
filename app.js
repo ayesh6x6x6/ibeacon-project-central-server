@@ -103,7 +103,11 @@ app.use('/api/auth/logout', (req,res,next)=>{
 app.use('/api/auth', AuthController);
 
 var user = {};
-
+app.get('/api/getmenuitems',(req,res)=>{
+    MenuItem.findOne({_id:req.query.item},(err,re)=>{
+        res.status(200).json({item:re});
+    });
+});
 app.get('/api/getuser',(req,res)=>{
     User.findOne({username:req.query.username},(err,userr)=>{
         if(err){
@@ -116,11 +120,11 @@ app.get('/api/getuser',(req,res)=>{
             user.preferences = [];
             console.log(user.favItems + 'fav');
             // user.favItems = JSON.parse(user.favItems);
-            user.favItems.forEach(item=>{
-                MenuItem.findOne({_id:item._id},(err,re)=>{
-                    user.preferences.push(re);
-                });
-            });
+            // user.favItems.forEach(item=>{
+            //     MenuItem.findOne({_id:item._id},(err,re)=>{
+            //         user.preferences.push(re);
+            //     });
+            // });
             flag = true;
             console.log('User is now:'+user);
             res.status(200).json(user);
