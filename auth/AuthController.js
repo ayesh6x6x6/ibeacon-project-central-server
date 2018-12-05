@@ -61,7 +61,6 @@ router.post('/register', function(req, res) {
       User.findOne({email:req.body.email},(err,ress)=>{
         if(res){
           console.log('User exists');
-          res.redirect('https://smartcafeserver.herokuapp.com/api/auth/login');
         } 
       });
       if(found == false){
