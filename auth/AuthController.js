@@ -30,11 +30,7 @@ router.post('/register', function(req, res) {
     }
     console.log('Received a request!');
     if(req.body.password!= ""){
-      User.findOne({email:req.body.email},(err,founduser)=>{
-        if(founduser){
-          res.status(200).json({ auth: true, token: token, username: founduser.username, email: founduser.email });
-        }
-        else{
+
           var hashedPassword = bcrypt.hashSync(req.body.password, 8);
 
           User.create({
@@ -59,15 +55,13 @@ router.post('/register', function(req, res) {
             console.log("Created a user!");
             res.status(200).send({ auth: true, token: token });
           }); 
-        }
-      });
 
     } else {
       var found = false;
-      User.findOne({username:req.body.username},(err,res)=>{
+      User.findOne({email:req.body.email},(err,res)=>{
         if(res){
           console.log('User exists');
-          found = true;
+          res.status(200).send({ auth: true, token: token });
         } 
       });
       if(found == false){
