@@ -58,10 +58,10 @@ router.post('/register', function(req, res) {
 
     } else {
       var found = false;
-      User.findOne({email:req.body.email},(err,res)=>{
+      User.findOne({email:req.body.email},(err,ress)=>{
         if(res){
           console.log('User exists');
-          res.status(200).send({ auth: true, token: token });
+          res.redirect('/login');
         } 
       });
       if(found == false){
