@@ -59,7 +59,7 @@ router.post('/register', function(req, res) {
     } else {
       var found = false;
       User.findOne({email:req.body.email},(err,ress)=>{
-        if(res){
+        if(ress){
           console.log('User exists');
         } 
       });
